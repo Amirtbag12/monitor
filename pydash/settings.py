@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
+
+PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # SITE_ID = 1
@@ -98,20 +100,26 @@ TEMPLATE_LOADERS = (
 
 TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'templates'),)
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.6/howto/static-files/
+# STATIC FILES (CSS, JavaScript, Images)
+''' Run command : python3 manage.py collectstatic for collect STATIC FILES '''
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
 
-STATIC_ROOT = os.path.join(os.path.dirname(__file__), '..', 'static')
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
+
+# Manifest Static Files Storage is recommended in production, to prevent outdated
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+
+# static root Dir configuration
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# STATIC URL
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (
-)
-
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    #'django.contrib.staticfiles.finders.DefaultStorageFinder',
-)
+# Media root Dir configuration
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 LOGGING = {
     'version': 1,
